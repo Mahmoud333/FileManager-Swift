@@ -1,0 +1,22 @@
+{
+  "name": "FileManager-Swift",
+  "version": "0.1.0",
+  "summary": "A short description of FileManager-Swift.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Mahmoud333/FileManager-Swift",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Mahmoud333": "mahmoud_smgl@hotmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Mahmoud333/FileManager-Swift.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "FileManager-Swift/Classes/**/*"
+}
