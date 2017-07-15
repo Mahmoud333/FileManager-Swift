@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'FileManager-Swift_Example' do
+  pod 'FileManager-Swift', :path => '../'
+
+  target 'FileManager-Swift_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
