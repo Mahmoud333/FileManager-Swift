@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FileManager_Swift
 
 class ViewController: UIViewController {
 
@@ -15,6 +16,34 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
+    
+    @IBAction func presentFileManager(_ sender: Any) {
+        let fileManager = FileManagerVC()
+        
+        /*//Old Code to pass the Images
+        fileManager.passImages = [
+            "file" : UIImage(named: "file")!,
+            "zip"  : UIImage(named: "zip")!,
+            "3gp"  : UIImage(named: "3gp")!,
+            "jpg"  : UIImage(named: "jpg")!,
+            "json" : UIImage(named: "json")!,
+            "mp4"  : UIImage(named: "mp4")!,
+            "pdf"  : UIImage(named: "pdf")!,
+            "png"  : UIImage(named: "png")!,
+            "txt"  : UIImage(named: "txt")!,
+            "xml"  : UIImage(named: "xml")!,
+            
+            "trash"  : UIImage(named: "trash")!,
+            "mark"  : UIImage(named: "messageindicator1")!,
+            "markChecked"  : UIImage(named: "messageindicatorchecked1")!,
+            "back"  : UIImage(named: "send_btn")!
+        ]*/
+        
+        
+        present(fileManager, animated: true, completion: nil)
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

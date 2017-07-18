@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import FileManager-Swift
+//import FileManager-Swift
 
 class Tests: XCTestCase {
     
