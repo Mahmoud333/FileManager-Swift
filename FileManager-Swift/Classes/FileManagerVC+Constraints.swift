@@ -59,13 +59,15 @@ extension FileManagerVC {
         return paths.map { aContent in (path as NSString).appendingPathComponent(aContent)}
     }
     
-    func AlertDismiss(t: String, msg: String) {
+    func AlertDismiss(t: String, msg: String, yesCompletion: @escaping () -> ()) {
         let ac = UIAlertController(title: t, message: msg, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         ac.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alert: UIAlertAction) in
-            self.dismiss(animated: true, completion: nil)
+            //self.dismiss(animated: true, completion: nil)
+            yesCompletion()
         }))
         self.present(ac, animated: true, completion: nil)
+        
     }
 }
 

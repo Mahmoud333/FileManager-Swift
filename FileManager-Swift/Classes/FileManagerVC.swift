@@ -190,12 +190,12 @@ public class FileManagerVC: UIViewController {
             
             //let fileType = cleanedFileName.remove before the .
             if !cleanedFileName.contains(".") {
-                file = File(fileName: cleanedFileName, fileType: "file")
+                file = File(fileName: cleanedFileName, fileType: "file", filePath: currentPath!)
                 
             } else {
                 let fileType = cleanedFileName.components(separatedBy: ".").last
                 
-                file = File(fileName: cleanedFileName, fileType: fileType!)
+                file = File(fileName: cleanedFileName, fileType: fileType!, filePath: currentPath!)
 
             }
             
@@ -212,60 +212,68 @@ public class FileManagerVC: UIViewController {
     }
     
     @IBAction func deleteFilesPressed(_ sender: Any){
-        if markIs == true {
-            if (collectionView.indexPathsForSelectedItems?.count)! > 0 {
-            //if markedFiles.count > 0 {
-                let selectedCellsIndex = collectionView.indexPathsForSelectedItems
-                
-                for index in selectedCellsIndex! {
-                    let file = filess[index.row]
-                    markedFiles.append(file)
-                    
-                }
-                
-                
-                for markedFile in markedFiles {     //loop through markedFiles
-                    
-                    var fileName: String!
-                                                    //get its name.type
-                    if markedFile.fileType != "file" {
-                        fileName = markedFile.fileName
-                    } else {
-                        fileName = markedFile.fileName
-                    }
-                    
-                                                    //get its path mycomputer/name.type
-                    let fullMarkedFilePath = "\(currentPath!)/\(fileName!)"
+        
+        AlertDismiss(t: "Deleting Files", msg: "Are you sure you wanna delete this files") { [unowned self] _  in
+            
+            print("Delete")
+            
+            if self.markIs == true {
+                if (self.collectionView.indexPathsForSelectedItems?.count)! > 0 {
+                    //if markedFiles.count > 0 {
                     
                     
-                                                    //start deleting operation
-                    do {
-                        let fileManager = FileManager.default
+                    let selectedCellsIndex = self.collectionView.indexPathsForSelectedItems
+                    
+                    for index in selectedCellsIndex! {
+                        let file = self.filess[index.row]
+                        self.markedFiles.append(file)
                         
-                        // Check if file exists
-                        if fileManager.fileExists(atPath: fullMarkedFilePath) {
-                           
-                            // Delete file
-                            try fileManager.removeItem(atPath: fullMarkedFilePath)
-                            print("File deleted")
-                            
-                        } else {
-                            print("File does not exist")
-                            print("File path \(fullMarkedFilePath)")
-                        }
-                    }
-                    catch let error as NSError {
-                        print("An error took place: \(error)")
                     }
                     
+                    
+                    for markedFile in self.markedFiles {     //loop through markedFiles
+                        
+                        var fileName: String!
+                        //get its name.type
+                        if markedFile.fileType != "file" {
+                            fileName = markedFile.fileName
+                        } else {
+                            fileName = markedFile.fileName
+                        }
+                        
+                        //get its path mycomputer/name.type
+                        let fullMarkedFilePath = "\(self.currentPath!)/\(fileName!)"
+                        
+                        
+                        //start deleting operation
+                        do {
+                            let fileManager = FileManager.default
+                            
+                            // Check if file exists
+                            if fileManager.fileExists(atPath: fullMarkedFilePath) {
+                                
+                                // Delete file
+                                try fileManager.removeItem(atPath: fullMarkedFilePath)
+                                print("File deleted")
+                                
+                            } else {
+                                print("File does not exist")
+                                print("File path \(fullMarkedFilePath)")
+                            }
+                        }
+                        catch let error as NSError {
+                            print("An error took place: \(error)")
+                        }
+                        
+                    }
+                    //after delete cV will select cell instead of the removed one
+                    for cell in self.collectionView.visibleCells {
+                        cell.backgroundColor = UIColor(white: 0.92, alpha: 1.0)
+                    }
+                    self.readFilesHere(path: self.currentPath!)
+                    self.collectionView.reloadData()
+                    self.markIs = false
                 }
-                //after delete cV will select cell instead of the removed one
-                for cell in collectionView.visibleCells {
-                    cell.backgroundColor = UIColor(white: 0.92, alpha: 1.0)
-                }
-                readFilesHere(path: currentPath!)
-                collectionView.reloadData()
-                markIs = false
             }
         }
     }
@@ -273,7 +281,11 @@ public class FileManagerVC: UIViewController {
     @IBAction func backTapped(_ sender: Any) {
         if ourPathSteps.count <= 1 { //we are in mycomputer cant go more back
             print("backButton count \(ourPathSteps.count)")
-            AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?")
+            //AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?")
+            AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?", yesCompletion: {
+                
+            })
+            
             ;return
         }
         
@@ -300,7 +312,7 @@ extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FileCell", for: indexPath) as? FileCell {
             
-            cell.configuerCell(fileName: filess[indexPath.row].fileName, fileType: filess[indexPath.row].fileType)
+            cell.configuerCell(fileName: filess[indexPath.row].fileName, fileType: filess[indexPath.row].fileType, filePath: filess[indexPath.row].filePath)
             
             let fileType = filess[indexPath.row].fileType
             
@@ -384,10 +396,13 @@ class File {
     
     private var _fileName: String?
     private var _fileType: String?
+    private var _filePath: String?
+
     
-    init(fileName: String, fileType: String) {
+    init(fileName: String, fileType: String,filePath: String) {
         _fileName = fileName
         _fileType = fileType
+        _filePath = filePath
     }
     
     var fileName: String {
@@ -406,6 +421,13 @@ class File {
         }
     }
     
+    var filePath: String {
+        get { if _filePath == nil { return "" }
+            return _filePath!
+        } set {
+            _filePath = newValue
+        }
+    }
 }
 
 @available(iOS 9.0, *)
@@ -451,15 +473,13 @@ class FileCell: UICollectionViewCell {
     
 //    init() {
 //        super.init(frame: CGRect(x: 0, y: 0, width: 140, height: 140))
-//
-//        
 //    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configuerCell(fileName: String, fileType: String) {
+    func configuerCell(fileName: String, fileType: String, filePath: String) {
         self.backgroundColor = UIColor(white: 0.92, alpha: 1.0)
         self.layer.cornerRadius = 7
         self.layer.masksToBounds = true
@@ -471,7 +491,6 @@ class FileCell: UICollectionViewCell {
 //        } else if fileType == "zip" {
 //            fileImageV.image = UIImage(named: "zip") //UIImage(named: fileType)
 //        }
-        
         //New Edit
         
         switch fileType {
@@ -482,10 +501,14 @@ class FileCell: UICollectionViewCell {
             case "json" : fileImageV.image = UIImage(named: "json")
             case "mp4"  : fileImageV.image = UIImage(named: "mp4")
             case "pdf"  : fileImageV.image = UIImage(named: "pdf")
-            case "png"  : fileImageV.image = UIImage(named: "png")
             case "txt"  : fileImageV.image = UIImage(named: "txt")
             case "xml"  : fileImageV.image = UIImage(named: "xml")
             case "zip"  : fileImageV.image = UIImage(named: "zip")
+            case "png","jpg","jpeg":
+                //fileImageV.image = UIImage(named: "png")
+                print("\(filePath)/\(fileName).\(fileType)")
+                let url = URL(fileURLWithPath: "\(filePath)/\(fileName).\(fileType)")
+                fileImageV.image = UIImage(contentsOfFile: url.path)
         default:
                 break;
         }

@@ -16,12 +16,14 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 - you can enter folders/files and delete them
 
+- you can see the real jpg, jepg, png images instead of image icons
+
 - supports 3gp, files, jpg, json, mp4, pdf, png, txt, xml, zip images icon to be easier for you to navigate through the files
 
 - Future features:
 
         - Better UI with good animations
-        - you will get to see the real images instead of image icons
+      ✓✓✓ you will get to see the real images instead of image icons 
         - will be able to play/watch the videos, songs
         - will be able to open and see what is inside json, xml, txt files
 
