@@ -1,9 +1,17 @@
+FileManager-Swift Read Me
 # FileManager-Swift
 
 [![CI Status](http://img.shields.io/travis/Mahmoud333/FileManager-Swift.svg?style=flat)](https://travis-ci.org/Mahmoud333/FileManager-Swift)
 [![Version](https://img.shields.io/cocoapods/v/FileManager-Swift.svg?style=flat)](http://cocoapods.org/pods/FileManager-Swift)
 [![License](https://img.shields.io/cocoapods/l/FileManager-Swift.svg?style=flat)](http://cocoapods.org/pods/FileManager-Swift)
 [![Platform](https://img.shields.io/cocoapods/p/FileManager-Swift.svg?style=flat)](http://cocoapods.org/pods/FileManager-Swift)
+
+## ScreenShots
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen1.png)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen2.png)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen3.png)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.png)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.png)
 
 ## Example
 
@@ -22,10 +30,10 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 - Future features:
 
-        - Better UI with good animations
-      ✓✓✓ you will get to see the real images instead of image icons 
-        - will be able to play/watch the videos, songs
-        - will be able to open and see what is inside json, xml, txt files
+- Better UI with good animations
+✓✓✓ you will get to see the real images instead of image icons 
+- will be able to play/watch the videos, songs
+- will be able to open and see what is inside json, xml, txt files
 
 
 ## How To Use 
@@ -37,7 +45,7 @@ let fileManager = FileManagerVC()
 present(fileManager, animated: true, completion: nil)
 ```
 download the "Assets" folder in the example project and add it in your project if you want ur UI looks better those images are the images for json,txt,png and buttons images
-    -incase you want to change the image all you have to do is delete the original and add yours BUT WITH SAME NAME of the last image
+-incase you want to change the image all you have to do is delete the original and add yours BUT WITH SAME NAME of the last image
 
 You don't need to do anything more
 

@@ -9,29 +9,9 @@
 import UIKit
 
 
-
+//Controller - FileManagerVC
 @available(iOS 9.0, *)
 public class FileManagerVC: UIViewController {
-
-    //@IBOutlet weak var collectionView: UICollectionView!
-    //@IBOutlet weak var deleteBTN: UIButton!
-    //@IBOutlet weak var markBTN: UIButton!
-    
-    //People Decide the images by code Version
-    /*
-    static var _imagess = [String: UIImage]()
-    public var passImages: [String: UIImage] {
-        set {
-            FileManagerVC._imagess = newValue
-        } get {
-            return FileManagerVC._imagess
-        }
-    }
-    public func passImagesFunc(passedImages: [String: UIImage]) {
-        FileManagerVC._imagess = passedImages
-    }*/
-    
-    
 
     var filess = [File]()
     
@@ -283,7 +263,8 @@ public class FileManagerVC: UIViewController {
             print("backButton count \(ourPathSteps.count)")
             //AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?")
             AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?", yesCompletion: {
-                
+                self.dismiss(animated: true, completion: nil)
+
             })
             
             ;return
@@ -295,16 +276,10 @@ public class FileManagerVC: UIViewController {
         readFilesHere(path: ourPathSteps.last!)  //go to the one before our current
         print("backButton ourPathSteps.last! \(ourPathSteps.last!)")
         markedFiles.removeAll()
+        ourPathSteps.removeLast()               //remove again, had a bug that when we enter folder and back from it it will add the documents address, + 1, 2 , 3, 4 so have to do it twice, remove current, remove the new back(opened)
     }
 
-    /*
-    // MARK: - Navigation
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+
 }
 @available(iOS 9.0, *)
 extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -392,6 +367,7 @@ extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
 }
 
+//Model - File
 class File {
     
     private var _fileName: String?
@@ -430,6 +406,7 @@ class File {
     }
 }
 
+//View - FileCell
 @available(iOS 9.0, *)
 class FileCell: UICollectionViewCell {
     
