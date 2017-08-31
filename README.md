@@ -1,4 +1,3 @@
-FileManager-Swift Read Me
 # FileManager-Swift
 
 [![CI Status](http://img.shields.io/travis/Mahmoud333/FileManager-Swift.svg?style=flat)](https://travis-ci.org/Mahmoud333/FileManager-Swift)
@@ -7,11 +6,11 @@ FileManager-Swift Read Me
 [![Platform](https://img.shields.io/cocoapods/p/FileManager-Swift.svg?style=flat)](http://cocoapods.org/pods/FileManager-Swift)
 
 ## ScreenShots
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen1.png)
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen2.png)
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen3.png)
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.png)
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.png)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen1.PNG)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen2.PNG)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen3.PNG)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.PNG)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.PNG)
 
 ## Example
 
