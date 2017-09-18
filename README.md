@@ -57,7 +57,7 @@ FileManager-Swift is available through [CocoaPods](http://cocoapods.org). To ins
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "FileManager-Swift"
+pod 'FileManager-Swift'
 ```
 
 
