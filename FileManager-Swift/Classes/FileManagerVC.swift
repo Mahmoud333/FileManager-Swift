@@ -35,85 +35,11 @@ public class FileManagerVC: UIViewController {
         }
     }
     
-    var headerView:FancyView = {
-       let view = FancyView()
-        view.backgroundColor = UIColor.purple
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.addShadow = true
-        return view
-    }()
-    
-    var collectionView: UICollectionView = {
-        let flow = UICollectionViewFlowLayout()
-        flow.sectionInset = UIEdgeInsetsMake(14, 20, 14, 20)
-        //let width = UIScreen.main.bounds.size.width
-        //flow?.itemSize = CGSize(width: width/3, height: width/3)
-        flow.itemSize = CGSize(width: 140, height: 140)
-        flow.minimumLineSpacing = 14
-        flow.minimumInteritemSpacing = 14
-        flow.scrollDirection = .vertical
-        let cV = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: flow)
-        cV.allowsMultipleSelection = true
-        cV.translatesAutoresizingMaskIntoConstraints = false
-        cV.backgroundColor = UIColor.clear
-
-        return cV
-    }()
-    var markBTN: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle(" Mark", for: .normal)
-        btn.setTitleColor( UIColor.lightGray, for: .normal)
-        btn.frame.size = CGSize(width: 48, height: 38)
-
-
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-        btn.setImage( UIImage(named: "messageindicator1.png"), for: .normal)
-        btn.layer.cornerRadius = 5
-        btn.backgroundColor = UIColor.clear
-        btn.addTarget(self, action: #selector(markTapped), for: .touchUpInside)
-        btn.tintColor = UIColor.gray
-        return btn
-    }()
-    var deleteBtn: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle("Delete", for: .normal)
-        btn.setTitleColor( UIColor.lightGray, for: .normal)
-        btn.frame.size = CGSize(width: 48, height: 38)
-        btn.setImage( UIImage(named: "trash"), for: .normal)
-
-        
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-        btn.layer.cornerRadius = 5
-        btn.backgroundColor = UIColor.clear
-        btn.addTarget(self, action: #selector(deleteFilesPressed), for: .touchUpInside)
-        btn.tintColor = UIColor.gray
-        return btn
-    }()
-    var backBtn: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.setTitle(" Back", for: .normal)
-        btn.setTitleColor( UIColor.lightGray, for: .normal)
-        btn.contentVerticalAlignment = .fill
-        btn.contentHorizontalAlignment = .fill
-        //btn.setImage(UIImage.make(name: "send_btn"), for: .normal)
-        btn.setImage(UIImage(named: "send_btn"), for: .normal)
-        //btn.setImage(FileManagerVC._imagess["back"], for: .normal)
-
-        btn.frame.size = CGSize(width: 48, height: 38)
-        
-        btn.translatesAutoresizingMaskIntoConstraints = false
-        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-        btn.layer.cornerRadius = 5
-        btn.backgroundColor = UIColor.clear
-        btn.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
-        btn.tintColor = UIColor.gray
-        return btn
-    }()
+    lazy var headerView: FancyView = self.configuerHeaderView()
+    lazy var collectionView: UICollectionView = self.configuerCollectionView()
+    lazy var markBTN: UIButton = self.configuerMarkBtn()
+    lazy var deleteBtn: UIButton = self.configuerDeleteBtn()
+    lazy var backBtn: UIButton = self.configuerBackBtn()
     
     override public func viewDidLoad() {
         super.viewDidLoad()
@@ -136,8 +62,7 @@ public class FileManagerVC: UIViewController {
         ourDirectory = getDirectoryPath()
         //ourPathSteps.append(ourDirectory!) dont need it but keep it 27teate
         
-        print()
-        print("\(ourDirectory)")
+        debugFM("\(ourDirectory)")
         
         readFilesHere(path: ourDirectory!)
     }
@@ -156,10 +81,7 @@ public class FileManagerVC: UIViewController {
         
         ourPathSteps.append(currentPath!) //add our currentPath to history
         
-        
-        print()
-        print("currentPath: \(currentPath)")
-        print()
+        printFM("currentPath \(currentPath)")
         
         var thisPathFiles = [File]()
         for file in filesNames! {
@@ -179,7 +101,7 @@ public class FileManagerVC: UIViewController {
 
             }
             
-            print("cleanedFileName \(file?.fileName), filetype \(file?.fileType)")
+            debugFM("fileName \(file?.fileName), filetype \(file?.fileType)")
 
             thisPathFiles.append(file!)
         }
@@ -195,7 +117,7 @@ public class FileManagerVC: UIViewController {
         
         AlertDismiss(t: "Deleting Files", msg: "Are you sure you wanna delete this files") { [unowned self] _  in
             
-            print("Delete")
+            debugFM("User tapped yes delete")
             
             if self.markIs == true {
                 if (self.collectionView.indexPathsForSelectedItems?.count)! > 0 {
@@ -234,17 +156,16 @@ public class FileManagerVC: UIViewController {
                                 
                                 // Delete file
                                 try fileManager.removeItem(atPath: fullMarkedFilePath)
-                                print("File deleted")
+                                printFM("File deleted")
                                 
                             } else {
-                                print("File does not exist")
-                                print("File path \(fullMarkedFilePath)")
+                                printFM("File does not exist at path \(fullMarkedFilePath)")
+                                
                             }
                         }
                         catch let error as NSError {
-                            print("An error took place: \(error)")
+                            printFM("error with deleting -- \(error)")
                         }
-                        
                     }
                     //after delete cV will select cell instead of the removed one
                     for cell in self.collectionView.visibleCells {
@@ -260,7 +181,7 @@ public class FileManagerVC: UIViewController {
     
     @IBAction func backTapped(_ sender: Any) {
         if ourPathSteps.count <= 1 { //we are in mycomputer cant go more back
-            print("backButton count \(ourPathSteps.count)")
+            debugFM("backButton count \(ourPathSteps.count)")
             //AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?")
             AlertDismiss(t: "Leaving File Manager", msg: "Are you sure?", yesCompletion: {
                 self.dismiss(animated: true, completion: nil)
@@ -272,9 +193,9 @@ public class FileManagerVC: UIViewController {
         
         
         ourPathSteps.removeLast()               //remove the last(our current)
-        print("backButton ourPathSteps after last one removed \(ourPathSteps)")
+        debugFM("backButton ourPathSteps after last one removed \(ourPathSteps)")
         readFilesHere(path: ourPathSteps.last!)  //go to the one before our current
-        print("backButton ourPathSteps.last! \(ourPathSteps.last!)")
+        debugFM("backButton ourPathSteps.last! \(ourPathSteps.last!)")
         markedFiles.removeAll()
         ourPathSteps.removeLast()               //remove again, had a bug that when we enter folder and back from it it will add the documents address, + 1, 2 , 3, 4 so have to do it twice, remove current, remove the new back(opened)
     }
@@ -287,9 +208,11 @@ extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FileCell", for: indexPath) as? FileCell {
             
-            cell.configuerCell(fileName: filess[indexPath.row].fileName, fileType: filess[indexPath.row].fileType, filePath: filess[indexPath.row].filePath)
-            
+            let fileName = filess[indexPath.row].fileName
             let fileType = filess[indexPath.row].fileType
+            let filePath = filess[indexPath.row].filePath
+            
+            cell.configuerCell(fileName: fileName, fileType: fileType, filePath: filePath)
             
             //People Decide the images by code Version
             /*
@@ -351,13 +274,16 @@ extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     }
    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 114, height: 114)
+        if customizations.cellType == .titleAndSize {
+            return CGSize(width: 114, height: 130)
+        } else {
+            return CGSize(width: 114, height: 114)
+        }
     }
      /*
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 50.0
     }
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 100.0
     }*/
@@ -369,7 +295,6 @@ extension FileManagerVC: UICollectionViewDelegate, UICollectionViewDataSource, U
 
 //Model - File
 class File {
-    
     private var _fileName: String?
     private var _fileType: String?
     private var _filePath: String?
@@ -414,7 +339,7 @@ class FileCell: UICollectionViewCell {
     var fileImageV: UIImageView = {
         let piv = UIImageView()
         piv.translatesAutoresizingMaskIntoConstraints = false
-        //piv.clipsToBounds = true
+        piv.clipsToBounds = true
         piv.contentMode = .scaleAspectFit
         return piv
     }()
@@ -422,10 +347,23 @@ class FileCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
         lbl.font = UIFont(name: "Avenir", size: 18)
-        lbl.minimumScaleFactor = 0.9
+        lbl.minimumScaleFactor = 0.5
         lbl.textAlignment = .center
+        lbl.numberOfLines = 0
         return lbl
     }()
+    var fileSubTitleLbl: UILabel = {
+        let lbl = UILabel()
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        lbl.font = UIFont(name: "Avenir", size: 12)
+        lbl.textColor = .darkGray
+        lbl.minimumScaleFactor = 0.5
+        lbl.textAlignment = .center
+        lbl.numberOfLines = 0
+        return lbl
+    }()
+    
+    var cellTitle: CellType = customizations.cellType ?? .title
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -436,21 +374,46 @@ class FileCell: UICollectionViewCell {
         self.contentMode = .center
         self.clipsToBounds = true
         
-            fileImageV.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
-        fileImageV.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        fileImageV.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
-        fileImageV.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75).isActive = true
-        
-        fileNameLbl.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
-        fileNameLbl.topAnchor.constraint(equalTo: fileImageV.bottomAnchor).isActive = true
-        fileNameLbl.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
-        fileNameLbl.heightAnchor.constraint(greaterThanOrEqualTo: self.contentView.heightAnchor, multiplier: 0.25).isActive = true
+        if customizations.cellType == .titleAndSize {
+            self.addSubview(fileSubTitleLbl)
+            
+            
+            //fileSize label constraints
+            fileSubTitleLbl.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+            fileSubTitleLbl.topAnchor.constraint(equalTo: fileNameLbl.bottomAnchor).isActive = true
+            fileSubTitleLbl.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
+            fileSubTitleLbl.heightAnchor.constraint(greaterThanOrEqualTo: self.contentView.heightAnchor, multiplier: 0.20).isActive = true
+            
+            
+            //fileName label constraints
+            fileNameLbl.bottomAnchor.constraint(equalTo: fileSubTitleLbl.topAnchor, constant: 2).isActive = true
+            fileNameLbl.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
+            fileNameLbl.heightAnchor.constraint(greaterThanOrEqualTo: self.contentView.heightAnchor, multiplier: 0.18).isActive = true
+            
+            
+            //Image constraints
+            fileImageV.topAnchor.constraint(equalTo: self.topAnchor, constant: 2).isActive = true
+            fileImageV.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
+            fileImageV.bottomAnchor.constraint(equalTo: fileNameLbl.topAnchor, constant: -5).isActive = true
+            //fileImageV.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.67).isActive = true
 
+            
+        } else {
+            //Image constraints
+            fileImageV.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
+            fileImageV.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+            fileImageV.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
+            fileImageV.heightAnchor.constraint(equalTo: contentView.heightAnchor, multiplier: 0.75).isActive = true
+            
+            //fileName label constraints
+            fileNameLbl.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
+            fileNameLbl.topAnchor.constraint(equalTo: fileImageV.bottomAnchor).isActive = true
+            fileNameLbl.widthAnchor.constraint(equalTo: self.contentView.widthAnchor, constant: -6).isActive = true
+            fileNameLbl.heightAnchor.constraint(greaterThanOrEqualTo: self.contentView.heightAnchor, multiplier: 0.25).isActive = true
+        }
+        
     }
     
-//    init() {
-//        super.init(frame: CGRect(x: 0, y: 0, width: 140, height: 140))
-//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -461,15 +424,30 @@ class FileCell: UICollectionViewCell {
         self.layer.cornerRadius = 7
         self.layer.masksToBounds = true
         
-        fileNameLbl.text = fileName
+        switch cellTitle {
+        case .title:
+            fileNameLbl.text = fileName
+        case .titleAndSize:
+            //Get File Size
+            //let filePath = "\(filePath)/\(fileName).\(fileType)"
+            let filePath = "\(filePath)/\(fileName)"
+
+            //Set Title
+            switch fileType {
+            case "file":
+                fileNameLbl.text = fileName
+                fileSubTitleLbl.text = "Directory"
+            case "zip", "3gp", "jpg", "json", "mp4", "pdf", "txt", "xml", "zip", "png","jpg","jpeg":
+                let size = fileSize(fromPath: filePath)
+                fileNameLbl.text = fileName
+                fileSubTitleLbl.text = size ?? String()
+            default:
+                fileNameLbl.text = fileName
+                break;
+            }
+        }
         
-//        if fileType == "file"  {
-//            fileImageV.image = UIImage(named: "file") //UIImage(named: fileType)
-//        } else if fileType == "zip" {
-//            fileImageV.image = UIImage(named: "zip") //UIImage(named: fileType)
-//        }
-        //New Edit
-        
+        //Set Image Part
         switch fileType {
             case "file" : fileImageV.image = UIImage(named: "file")
             case "zip"  : fileImageV.image = UIImage(named: "zip")
@@ -482,12 +460,11 @@ class FileCell: UICollectionViewCell {
             case "xml"  : fileImageV.image = UIImage(named: "xml")
             case "zip"  : fileImageV.image = UIImage(named: "zip")
             case "png","jpg","jpeg":
-                //fileImageV.image = UIImage(named: "png")
-                print("\(filePath)/\(fileName).\(fileType)")
+                //debugFM("\(filePath)/\(fileName).\(fileType)")
                 let url = URL(fileURLWithPath: "\(filePath)/\(fileName).\(fileType)")
                 fileImageV.image = UIImage(contentsOfFile: url.path)
         default:
-                break;
+            break;
         }
 
     }

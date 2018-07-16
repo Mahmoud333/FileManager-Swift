@@ -46,10 +46,20 @@ present(fileManager, animated: true, completion: nil)
 download the "Assets" folder in the example project and add it in your project if you want ur UI looks better those images are the images for json,txt,png and buttons images
 -incase you want to change the image all you have to do is delete the original and add yours BUT WITH SAME NAME of the last image
 
+also you can do
+
+```ruby
+//Shows subtitle that contains the size of file
+customizations.cellType = CellType.titleAndSize
+
+//Customize the header View Color
+customizations.headerViewColor = UIColor.green
+```
+
 You don't need to do anything more
 
 ## Requirements
-Swift 3 and IOS 9+ because its using NSLayoutAnchor
+Swift 3 and 4 and IOS 9+ because its using NSLayoutAnchor
 
 ## Installation
 

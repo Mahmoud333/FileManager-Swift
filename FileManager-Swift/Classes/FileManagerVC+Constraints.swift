@@ -8,19 +8,104 @@
 
 import UIKit
 
+//Configuer Our views
 @available(iOS 9.0, *)
 extension FileManagerVC {
     
+    func configuerHeaderView() -> FancyView {
+        let view = FancyView()
+        view.backgroundColor = customizations.headerViewColor ?? UIColor.purple
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addShadow = true
+        return view
+    }
+    
+    func configuerCollectionView() -> UICollectionView {
+        let flow = UICollectionViewFlowLayout()
+        flow.sectionInset = UIEdgeInsetsMake(14, 20, 14, 20)
+        //let width = UIScreen.main.bounds.size.width
+        //flow?.itemSize = CGSize(width: width/3, height: width/3)
+        flow.itemSize = CGSize(width: 140, height: 140)
+        flow.minimumLineSpacing = 14
+        flow.minimumInteritemSpacing = 14
+        flow.scrollDirection = .vertical
+        let cV = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: flow)
+        cV.allowsMultipleSelection = true
+        cV.translatesAutoresizingMaskIntoConstraints = false
+        cV.backgroundColor = UIColor.clear
+        
+        return cV
+    }
+    
+    func configuerMarkBtn() -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setTitle(" Mark", for: .normal)
+        btn.setTitleColor( UIColor.lightGray, for: .normal)
+        btn.frame.size = CGSize(width: 48, height: 38)
+        
+        
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+        btn.setImage( UIImage(named: "messageindicator1.png"), for: .normal)
+        btn.layer.cornerRadius = 5
+        btn.backgroundColor = UIColor.clear
+        btn.addTarget(self, action: #selector(markTapped), for: .touchUpInside)
+        btn.tintColor = UIColor.gray
+        return btn
+    }
+    
+    func configuerDeleteBtn() -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Delete", for: .normal)
+        btn.setTitleColor( UIColor.lightGray, for: .normal)
+        btn.frame.size = CGSize(width: 48, height: 38)
+        btn.setImage( UIImage(named: "trash"), for: .normal)
+        
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+        btn.layer.cornerRadius = 5
+        btn.backgroundColor = UIColor.clear
+        btn.addTarget(self, action: #selector(deleteFilesPressed), for: .touchUpInside)
+        btn.tintColor = UIColor.gray
+        return btn
+    }
+    
+    func configuerBackBtn() -> UIButton {
+        let btn = UIButton(type: .system)
+        btn.setTitle(" Back", for: .normal)
+        btn.setTitleColor( UIColor.lightGray, for: .normal)
+        btn.contentVerticalAlignment = .fill
+        btn.contentHorizontalAlignment = .fill
+        //btn.setImage(UIImage.make(name: "send_btn"), for: .normal)
+        btn.setImage(UIImage(named: "send_btn"), for: .normal)
+        //btn.setImage(FileManagerVC._imagess["back"], for: .normal)
+        
+        btn.frame.size = CGSize(width: 48, height: 38)
+        
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        //btn.titleLabel?.font = UIFont(name: "Avenir", size: 18)
+        btn.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+        btn.layer.cornerRadius = 5
+        btn.backgroundColor = UIColor.clear
+        btn.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
+        btn.tintColor = UIColor.gray
+        return btn
+    }
+}
 
+//Constraints
+@available(iOS 9.0, *)
+extension FileManagerVC {
+    
     //Important
     func setCollectionViewConstraints() { //handle x , y, width and height
         collectionView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         collectionView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-
     }
-
     
     func setButtonsContrainsts() {      //handle x , y, width and height
         backBtn.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -8).isActive = true
@@ -44,21 +129,6 @@ extension FileManagerVC {
 @available(iOS 9.0, *)
 extension FileManagerVC {
     /////////////////////////////////////
-    func getDirectoryPath() -> String {
-        print("VC getDirectoryPath")
-        
-        let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    func contentsOfDirectoryAtPath(path: String) -> [String]? {
-        print("VC contentsOfDirectoryAtPath")
-        
-        guard let paths = try? FileManager.default.contentsOfDirectory(atPath: path) else { return nil}
-        return paths.map { aContent in (path as NSString).appendingPathComponent(aContent)}
-    }
-    
     func AlertDismiss(t: String, msg: String, yesCompletion: @escaping () -> ()) {
         let ac = UIAlertController(title: t, message: msg, preferredStyle: .alert)
         ac.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -67,16 +137,7 @@ extension FileManagerVC {
             yesCompletion()
         }))
         self.present(ac, animated: true, completion: nil)
-        
     }
-}
-
-func contentsOfDirectoryAtPath(path: String) -> [String]? {
-    print("VC contentsOfDirectoryAtPath")
-    
-    guard let paths = try? FileManager.default.contentsOfDirectory(atPath: path) else { return nil}
-    
-    return paths.map { aContent in (path as NSString).appendingPathComponent(aContent)}
 }
 
 @available(iOS 9.0, *)
@@ -84,10 +145,11 @@ public extension UIImage {
     static func make(name: String) -> UIImage? {
         let bundle = Bundle(for: FileManagerVC.self)
         
-        print(contentsOfDirectoryAtPath(path: "\(Bundle(for: FileManagerVC.self).bundlePath)"))
-        print("\(Bundle(for: FileManagerVC.self).bundlePath)/FileManager_Swift")
+        debugFM("\(contentsOfDirectoryAtPath(path: "\(Bundle(for: FileManagerVC.self).bundlePath)"))")
+        debugFM("\(Bundle(for: FileManagerVC.self).bundlePath)/FileManager_Swift")
+        debugFM("FileManager_Swift/Assets/\(name).xcassets/\(name)")
+
         
-        print("FileManager_Swift/Assets/\(name).xcassets/\(name)")
         
         //return UIImage(named: "FileManager-Swift/Assets/\(name).xcassets/\(name).imageset/\(name)", in: bundle, compatibleWith: nil)
         

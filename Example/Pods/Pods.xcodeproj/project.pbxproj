@@ -9,11 +9,14 @@
 /* Begin PBXBuildFile section */
 		098F35531514D6EDFB78210E5ADAA5F6 /* Pods-FileManager-Swift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7681E1E082FB36868D2020C5FE299576 /* Pods-FileManager-Swift_Tests-dummy.m */; };
 		1EB2A4A81F1D8FAC00819A41 /* send_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1EB2A4A71F1D8FAC00819A41 /* send_btn.png */; };
-		1ED8FDE21F1BDF420047F1E5 /* FileManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8FDE01F1BDF420047F1E5 /* FileManagerVC.swift */; };
-		1ED8FDE31F1BDF420047F1E5 /* FileManagerVC+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8FDE11F1BDF420047F1E5 /* FileManagerVC+Constraints.swift */; };
-		1ED8FDE71F1C01AF0047F1E5 /* DropShadow+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED8FDE61F1C01AF0047F1E5 /* DropShadow+Protocol.swift */; };
 		1ED8FDE91F1C21E60047F1E5 /* icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1ED8FDE51F1BE2330047F1E5 /* icons.xcassets */; };
 		1ED8FDEB1F1C2BB90047F1E5 /* send_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 1ED8FDEA1F1C2BB90047F1E5 /* send_btn.png */; };
+		1EFD3F7320FD4AC1008910BE /* DropShadow+Protocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F6D20FD4AC0008910BE /* DropShadow+Protocol.swift */; };
+		1EFD3F7420FD4AC1008910BE /* FileManagerVC+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F6E20FD4AC1008910BE /* FileManagerVC+Constraints.swift */; };
+		1EFD3F7520FD4AC1008910BE /* options.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F6F20FD4AC1008910BE /* options.swift */; };
+		1EFD3F7620FD4AC1008910BE /* enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F7020FD4AC1008910BE /* enums.swift */; };
+		1EFD3F7720FD4AC1008910BE /* FileManagerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F7120FD4AC1008910BE /* FileManagerVC.swift */; };
+		1EFD3F7820FD4AC1008910BE /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFD3F7220FD4AC1008910BE /* Utilities.swift */; };
 		38F537BA9C4E904B0AEF479766CBDFD6 /* Pods-FileManager-Swift_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 90CA04006D50111FACEF1FC77F432F52 /* Pods-FileManager-Swift_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		567A0A00801D4AFA43A01A4E3A58B86E /* FileManager-Swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 381D25D21CFAEF6C6A7F122A83830210 /* FileManager-Swift-dummy.m */; };
 		5A9885078C3562C436980E62F4F8A2D4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
@@ -39,11 +42,14 @@
 		13B3027573FC96B84CAB8581B7EFFF2C /* Pods-FileManager-Swift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-FileManager-Swift_Example.modulemap"; sourceTree = "<group>"; };
 		14C984E53638CBE0E3082430D9FBF5F1 /* Pods-FileManager-Swift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FileManager-Swift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1EB2A4A71F1D8FAC00819A41 /* send_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn.png; sourceTree = "<group>"; };
-		1ED8FDE01F1BDF420047F1E5 /* FileManagerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerVC.swift; sourceTree = "<group>"; };
-		1ED8FDE11F1BDF420047F1E5 /* FileManagerVC+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManagerVC+Constraints.swift"; sourceTree = "<group>"; };
 		1ED8FDE51F1BE2330047F1E5 /* icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = icons.xcassets; path = Assets/icons.xcassets; sourceTree = "<group>"; };
-		1ED8FDE61F1C01AF0047F1E5 /* DropShadow+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropShadow+Protocol.swift"; sourceTree = "<group>"; };
 		1ED8FDEA1F1C2BB90047F1E5 /* send_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = send_btn.png; sourceTree = "<group>"; };
+		1EFD3F6D20FD4AC0008910BE /* DropShadow+Protocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DropShadow+Protocol.swift"; sourceTree = "<group>"; };
+		1EFD3F6E20FD4AC1008910BE /* FileManagerVC+Constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManagerVC+Constraints.swift"; sourceTree = "<group>"; };
+		1EFD3F6F20FD4AC1008910BE /* options.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = options.swift; sourceTree = "<group>"; };
+		1EFD3F7020FD4AC1008910BE /* enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = enums.swift; sourceTree = "<group>"; };
+		1EFD3F7120FD4AC1008910BE /* FileManagerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerVC.swift; sourceTree = "<group>"; };
+		1EFD3F7220FD4AC1008910BE /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		27C8B6B72E9DEB61EE210933A6969691 /* FileManager-Swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "FileManager-Swift.modulemap"; sourceTree = "<group>"; };
 		29BE4591C9FB6739FBFAE4F2482B5120 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2F8604A4A5A140BDD2EECFFEB1F586D6 /* Pods-FileManager-Swift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FileManager-Swift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -216,9 +222,12 @@
 		DF801BE831BA843194349C3D49D40849 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1ED8FDE01F1BDF420047F1E5 /* FileManagerVC.swift */,
-				1ED8FDE11F1BDF420047F1E5 /* FileManagerVC+Constraints.swift */,
-				1ED8FDE61F1C01AF0047F1E5 /* DropShadow+Protocol.swift */,
+				1EFD3F6D20FD4AC0008910BE /* DropShadow+Protocol.swift */,
+				1EFD3F7020FD4AC1008910BE /* enums.swift */,
+				1EFD3F7120FD4AC1008910BE /* FileManagerVC.swift */,
+				1EFD3F6E20FD4AC1008910BE /* FileManagerVC+Constraints.swift */,
+				1EFD3F6F20FD4AC1008910BE /* options.swift */,
+				1EFD3F7220FD4AC1008910BE /* Utilities.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -338,7 +347,7 @@
 				LastUpgradeCheck = 0700;
 				TargetAttributes = {
 					04082D5C6D71C6E77ED10E276F9B7A75 = {
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -379,9 +388,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1ED8FDE71F1C01AF0047F1E5 /* DropShadow+Protocol.swift in Sources */,
-				1ED8FDE21F1BDF420047F1E5 /* FileManagerVC.swift in Sources */,
-				1ED8FDE31F1BDF420047F1E5 /* FileManagerVC+Constraints.swift in Sources */,
+				1EFD3F7520FD4AC1008910BE /* options.swift in Sources */,
+				1EFD3F7620FD4AC1008910BE /* enums.swift in Sources */,
+				1EFD3F7820FD4AC1008910BE /* Utilities.swift in Sources */,
+				1EFD3F7720FD4AC1008910BE /* FileManagerVC.swift in Sources */,
+				1EFD3F7320FD4AC1008910BE /* DropShadow+Protocol.swift in Sources */,
+				1EFD3F7420FD4AC1008910BE /* FileManagerVC+Constraints.swift in Sources */,
 				567A0A00801D4AFA43A01A4E3A58B86E /* FileManager-Swift-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

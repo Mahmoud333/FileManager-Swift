@@ -18,6 +18,10 @@ class ViewController: UIViewController {
 
     
     @IBAction func presentFileManager(_ sender: Any) {
+        
+        //customizations.cellType = CellType.titleAndSize And CellType.title
+        //customizations.headerViewColor = UIColor.green
+        
         let fileManager = FileManagerVC()
         
         /*//Old Code to pass the Images

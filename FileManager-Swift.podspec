@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'FileManager-Swift'
-  s.version          = '0.3.0'
+  s.version          = '0.4.0'
   s.summary          = 'FileManager for ios apps that involves downloading contents.'
 
 # This description is used to generate tags and improve search results.
