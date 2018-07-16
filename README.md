@@ -10,7 +10,7 @@
 ![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen2.PNG)
 ![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen3.PNG)
 ![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.PNG)
-![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen4.PNG)
+![ScreenShot](https://github.com/Mahmoud333/FileManager-Swift/blob/master/screen5.PNG)
 
 ## Example
 
@@ -67,7 +67,7 @@ FileManager-Swift is available through [CocoaPods](http://cocoapods.org). To ins
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod "FileManager-Swift"
+pod 'FileManager-Swift'
 ```
 
 
