@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum CellType {
+public enum CellType {
     case title
     case titleAndSize
 }

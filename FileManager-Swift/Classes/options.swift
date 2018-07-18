@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct customizations {
+public struct customizations {
     public static var cellType: CellType?
     public static var headerViewColor: UIColor?
 }
